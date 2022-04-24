@@ -1,0 +1,19 @@
+html, body {
+    height: 100%;
+    width: 100%;
+    background-image: url(/img/space.jpg);
+}
+.row {
+    flex-wrap: nowrap;
+}
+body {
+    display: flex;
+    flex-direction: column;
+    flex: 0 1 0;
+}
+.space {
+    content: url(/img/tiles/empty.png);
+    width: 37px;
+    height: 37px;
+}
+

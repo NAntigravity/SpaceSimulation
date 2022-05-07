@@ -20,17 +20,15 @@ public class Map implements Serializable {
     public Map(int x, int y) {
         height = y;
         width = x;
-        generateMap();
+        generateEmptyMap();
     }
 
-    private void generateMap() {
+    private void generateEmptyMap() {
         tiles = new Vector<>();
         for (int i = 0; i < width; i++) {
             Vector<Tile> tileVector = new Vector<>();
             for (int j = 0; j < height; j++) {
-                Tile tile = new Tile();
-                tile.setTileType(Tile.class);
-                tileVector.add(tile);
+                tileVector.add(new Tile());
             }
             tiles.add(tileVector);
         }

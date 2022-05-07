@@ -23,7 +23,8 @@ public class SpaceSimulationRestController {
     private String Info() throws JsonProcessingException {
         ObjectMapper serialization = new ObjectMapper();
         var map = game.getGameField();
-        return serialization.writeValueAsString(map);
+        var entities = game.getEntities();
+        return serialization.writeValueAsString(new GameObjectDTO(map, entities));
     }
 
     @GetMapping("/space")

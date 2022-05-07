@@ -18,6 +18,8 @@ public class Star extends Entity {
     private Integer damageRadius;
 
     public Star(Integer width, Integer height, Integer radiationRadius, Integer radiationPower, Integer damageRadius) {
+        super();
+        entityType = Star.class;
         this.radiationRadius = radiationRadius;
         this.radiationPower = radiationPower;
         this.damageRadius = damageRadius;

@@ -23,6 +23,22 @@ public class Map implements Serializable {
         generateEmptyMap();
     }
 
+    public synchronized void updateTileOnCoordinate(Class tileType, int x, int y) {
+        Vector<Vector<Tile>> newTiles = new Vector<>();
+        for (int i = 0; i < width; i++) {
+            Vector<Tile> tileVector = new Vector<>();
+            for (int j = 0; j < height; j++) {
+                if (i == x && j == y) {
+                    tileVector.add(new Tile(tileType));
+                } else {
+                    tileVector.add(tiles.get(i).get(j));
+                }
+            }
+            newTiles.add(tileVector);
+        }
+        this.tiles = newTiles;
+    }
+
     private void generateEmptyMap() {
         tiles = new Vector<>();
         for (int i = 0; i < width; i++) {

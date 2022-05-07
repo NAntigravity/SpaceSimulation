@@ -1,4 +1,6 @@
 package space.simulation.oop.game.model.technologies;
 
-public class Engine {
+import space.simulation.oop.game.model.IPurchased;
+
+public class Engine implements IPurchased {
 }

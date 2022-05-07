@@ -38,13 +38,12 @@ public class ControlClass {
 
     private void generateStars() {
         int starsAmount = (int) (Math.random() * MAX_STARS_AMOUNT);
-        for (int i = 0; i <= starsAmount; i++){
-            int starWidth = (int) (Math.random() * MAX_STAR_WIDTH + MIN_STAR_WIDTH);
-            int starHeight = (int) (Math.random() * MAX_STAR_HEIGHT + MIN_STAR_HEIGHT);
+        for (int i = 0; i <= starsAmount; i++) {
+            int starRadius = (int) (Math.random() * MAX_STAR_RADIUS + MIN_STAR_RADIUS);
             int starDamageRadius = (int) (Math.random() * MAX_STAR_DAMAGE_RADIUS + MIN_STAR_DAMAGE_RADIUS);
             int starRadiationRadius = (int) (Math.random() * MAX_STAR_RADIATION_RADIUS + MIN_STAR_RADIATION_RADIUS);
             int starRadiationPower = (int) (Math.random() * MAX_STAR_RADIATION_POWER + MIN_STAR_RADIATION_POWER);
-            Entity entityToSpawn = new Star(starWidth, starHeight, starRadiationRadius, starRadiationPower, starDamageRadius);
+            Entity entityToSpawn = new Star(starRadius, starRadiationRadius, starRadiationPower, starDamageRadius);
             entityControlService.spawnEntityOnRandomCoordinates(entityToSpawn, gameField);
         }
     }

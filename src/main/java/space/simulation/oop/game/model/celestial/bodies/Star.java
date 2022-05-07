@@ -17,12 +17,12 @@ public class Star extends Entity {
     @Setter
     private Integer damageRadius;
 
-    public Star(Integer width, Integer height, Integer radiationRadius, Integer radiationPower, Integer damageRadius) {
+    public Star(Integer radius, Integer radiationRadius, Integer radiationPower, Integer damageRadius) {
         this.radiationRadius = radiationRadius;
         this.radiationPower = radiationPower;
         this.damageRadius = damageRadius;
-        this.width = width;
-        this.height = height;
+        this.width = radius;
+        this.height = radius;
     }
 
     @Override

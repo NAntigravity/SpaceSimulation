@@ -17,6 +17,8 @@ public final class SpaceSimulationConstants {
     //region MINE
     public static final int MAX_MINE_PER_BODY_AMOUNT = 3;
     public static final int MIN_MINE_PER_BODY_AMOUNT = 0;
+    public static final int MAX_MINE_POWER = 5;
+    public static final int MIN_MINE_POWER = 1;
     //endregion
 
     //region PLANET

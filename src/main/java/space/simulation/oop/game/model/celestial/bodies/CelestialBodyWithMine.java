@@ -35,16 +35,16 @@ public abstract class CelestialBodyWithMine extends Entity {
         Mine mine;
         switch (resourceNumber) {
             case 1:
-                mine = new Mine<Kryptonite>();
+                mine = new Mine<>(new Kryptonite());
                 break;
             case 2:
-                mine = new Mine<Oil>();
+                mine = new Mine<>(new Oil());
                 break;
             case 3:
-                mine = new Mine<Vespen>();
+                mine = new Mine<>(new Vespen());
                 break;
             default:
-                mine = new Mine<Iron>();
+                mine = new Mine<>(new Iron());
                 break;
         }
         return mine;

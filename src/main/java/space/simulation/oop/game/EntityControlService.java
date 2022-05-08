@@ -36,6 +36,11 @@ public class EntityControlService {
         }
     }
 
+    public void appendExistingEntityCollection() {
+        entities.addAll(entitiesToCreate);
+        entitiesToCreate = new Vector<>();
+    }
+
     private boolean trySetupCoordinates(Entity entity, Map map, int x, int y) {
         boolean overlap = isOverlapByAnotherEntity(x, y, entity.getWidth(), entity.getHeight());
         if (!overlap) {

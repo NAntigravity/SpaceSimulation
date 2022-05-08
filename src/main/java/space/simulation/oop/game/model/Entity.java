@@ -20,5 +20,9 @@ public abstract class Entity {
     @Setter
     protected Integer coordinateY;
 
+    @Getter
+    @Setter
+    protected Class entityType;
+
     public abstract void existOneTick();
 }

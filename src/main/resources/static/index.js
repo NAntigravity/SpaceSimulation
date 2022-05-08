@@ -3,6 +3,10 @@ function switchImageByID(tile, ID) {
         case "space.simulation.oop.game.model.Tile":
             tile.className = "space";
             break;
+        case "space.simulation.oop.game.model.celestial.bodies.Star":
+            tile.className = "star";
+            break;
+
     }
 }
 
@@ -16,9 +20,9 @@ async function mapCreation() {
     let response = await fetch('http://localhost:8080/space');
     let json = await response.json();
 
-    w = json.width;
-    h = json.height;
-    tiles = json.tiles;
+    w = json.map.width;
+    h = json.map.height;
+    tiles = json.map.tiles;
 
     map = document.getElementById("field");
 
@@ -27,7 +31,7 @@ async function mapCreation() {
         col.classList.add("row");
         for (let j = 0; j < w; j++) {
             let img = document.createElement("img");
-            switchImageByID(img, tiles[i][j].tileType[0]);
+            switchImageByID(img, tiles[i][j].tileType);
 
             img.setAttribute('X', j);
             img.setAttribute('Y', i);

@@ -4,6 +4,10 @@ import space.simulation.oop.game.model.IAvailableForLanding;
 import space.simulation.oop.game.model.IMovable;
 
 public class Asteroid extends CelestialBodyWithMine implements IAvailableForLanding, IMovable {
+    public Asteroid(Integer radius) {
+        super(radius);
+    }
+
     @Override
     public void existOneTick() {
 

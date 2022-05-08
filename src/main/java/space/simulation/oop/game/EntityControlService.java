@@ -2,6 +2,8 @@ package space.simulation.oop.game;
 
 import space.simulation.oop.game.model.Entity;
 import space.simulation.oop.game.model.Map;
+import space.simulation.oop.game.model.celestial.bodies.CelestialBodyWithMine;
+import space.simulation.oop.game.model.celestial.bodies.Mine;
 
 import java.util.Vector;
 import java.util.concurrent.ThreadLocalRandom;
@@ -38,6 +40,15 @@ public class EntityControlService {
         boolean overlap = isOverlapByAnotherEntity(x, y, entity.getWidth(), entity.getHeight());
         if (!overlap) {
             spawnEntityOnCoordinates(entity, x, y);
+            if (entity instanceof CelestialBodyWithMine) {
+                for (Mine mine :
+                        ((CelestialBodyWithMine) entity).getMines()) {
+                    spawnEntityOnCoordinates(
+                            mine,
+                            (int) (Math.random() * entity.getWidth() + x),
+                            (int) (Math.random() * entity.getHeight() + y));
+                }
+            }
             return true;
         }
         return false;
@@ -45,6 +56,9 @@ public class EntityControlService {
 
     private boolean isOverlapByAnotherEntity(int x, int y, int width, int height) {
         for (Entity e : entities) {
+            if (e instanceof Mine) {
+                continue;
+            }
             int intersectLUX = Math.max(x, e.getCoordinateX());
             int intersectLUY = Math.max(y, e.getCoordinateY());
             int intersectRDX = Math.min(x + width, e.getCoordinateX() + e.getWidth());

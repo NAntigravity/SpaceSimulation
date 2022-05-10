@@ -4,6 +4,7 @@ import lombok.Getter;
 import space.simulation.oop.game.model.Entity;
 import space.simulation.oop.game.model.IMovable;
 import space.simulation.oop.game.model.Map;
+import space.simulation.oop.game.model.celestial.bodies.Asteroid;
 import space.simulation.oop.game.model.celestial.bodies.Planet;
 import space.simulation.oop.game.model.celestial.bodies.Star;
 
@@ -14,6 +15,7 @@ import static space.simulation.oop.game.SpaceSimulationConstants.*;
 public class ControlClass {
     private final Map gameField;
     private static ControlClass INSTANCE;
+    @Getter
     private final EntityControlService entityControlService;
     private final Object lock = new Object();
 
@@ -37,6 +39,7 @@ public class ControlClass {
     public void start() {
         generateStars();
         generatePlanets();
+        generateAsteroids();
     }
 
     public void liveOneTick() {
@@ -78,8 +81,16 @@ public class ControlClass {
     private void generatePlanets() {
         int planetsAmount = (int) (Math.random() * MAX_PLANET_AMOUNT + MIN_PLANET_AMOUNT);
         for (int i = 0; i < planetsAmount; i++) {
-            int planetRadius = (int) (Math.random() * MAX_STAR_RADIUS + MIN_STAR_RADIUS);
+            int planetRadius = (int) (Math.random() * MAX_PLANET_RADIUS + MIN_PLANET_RADIUS);
             Entity entityToSpawn = new Planet(planetRadius);
+            entityControlService.spawnEntityOnRandomCoordinates(entityToSpawn, gameField);
+        }
+    }
+
+    private void generateAsteroids() {
+        int asteroidsAmount = (int) (Math.random() * MAX_ASTEROID_AMOUNT + MIN_ASTEROID_AMOUNT);
+        for (int i = 0; i < asteroidsAmount; i++) {
+            Entity entityToSpawn = new Asteroid(ASTEROID_RADIUS);
             entityControlService.spawnEntityOnRandomCoordinates(entityToSpawn, gameField);
         }
     }

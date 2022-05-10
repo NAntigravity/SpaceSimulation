@@ -24,5 +24,13 @@ public abstract class Entity {
     @Setter
     protected Class entityType;
 
+    public Coordinates getCoordinates() {
+        return new Coordinates(getCoordinateX(), getCoordinateY());
+    }
+    public void setCoordinates(Coordinates newCoordinates) {
+        this.setCoordinateX(newCoordinates.getX());
+        this.setCoordinateY(newCoordinates.getY());
+    }
+
     public abstract void existOneTick();
 }

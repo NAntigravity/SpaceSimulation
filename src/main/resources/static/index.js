@@ -6,7 +6,17 @@ function switchImageByID(tile, ID) {
         case "space.simulation.oop.game.model.celestial.bodies.Star":
             tile.className = "star";
             break;
+        case "space.simulation.oop.game.model.celestial.bodies.Planet":
+            tile.className = "planet";
+            break;
+    }
+}
 
+function switchEntityByID(entityType, entity) {
+    switch (entityType) {
+        case "space.simulation.oop.game.model.celestial.bodies.Asteroid":
+            entity.className = "asteroid";
+            break;
     }
 }
 
@@ -42,6 +52,29 @@ async function mapCreation() {
     }
 }
 
-mapCreation().then(()=>{
-    setInterval(()=>{console.log("I'm okay=(")},1000)
+async function updateEntity() {
+    let response = await fetch('http://localhost:8080/space');
+    let entities = await response.json();
+    let node;
+    if (prevEntities != null) {
+        for (let oldEntity of prevEntities) {
+            var tileType = entities.map.tiles[oldEntity.coordinateY][oldEntity.coordinateX].tileType[0];
+            var oldNode = map.childNodes[oldEntity.coordinateY].childNodes[oldEntity.coordinateX]
+            switchImageByID(oldNode, tileType);
+        }
+    }
+    for (let unit of entities.entities) {
+        try {
+            node = map.childNodes[unit.coordinateY].childNodes[unit.coordinateX];
+        } catch (e) {
+            console.log(e.message);
+        }
+        if (node === undefined) continue;
+        switchEntityByID(node.entityType, unit);
+    }
+    prevEntities = entities.entities;
+}
+
+mapCreation().then(() => {
+    setInterval(() => updateEntity(), 1000)
 });

@@ -5,6 +5,7 @@ import space.simulation.oop.game.model.Entity;
 import space.simulation.oop.game.model.IMovable;
 import space.simulation.oop.game.model.Map;
 import space.simulation.oop.game.model.celestial.bodies.Asteroid;
+import space.simulation.oop.game.model.celestial.bodies.Mine;
 import space.simulation.oop.game.model.celestial.bodies.Planet;
 import space.simulation.oop.game.model.celestial.bodies.Star;
 
@@ -55,7 +56,7 @@ public class ControlClass {
         Vector<Entity> entities = getEntities();
         for (Entity entity :
                 entities) {
-            if (!(entity instanceof IMovable)) {
+            if (!(entity instanceof IMovable || entity instanceof Mine)) {
                 for (int i = 0; i < entity.getWidth(); i++) {
                     for (int j = 0; j < entity.getHeight(); j++) {
                         gameField.updateTileOnCoordinate(

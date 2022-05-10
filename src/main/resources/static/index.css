@@ -3,23 +3,35 @@ html, body {
     width: 100%;
     background-image: url(/img/space.jpg);
 }
+
 .row {
     flex-wrap: nowrap;
 }
+
 body {
     display: flex;
     flex-direction: column;
     flex: 0 1 0;
 }
-.space {
-    content: url(/img/tiles/empty.png);
+
+img {
     width: 37px;
     height: 37px;
 }
 
+.space {
+    content: url(/img/tiles/empty.png);
+}
+
 .star {
     content: url(/img/tiles/star_tile.png);
-    width: 37px;
-    height: 37px;
+}
+
+.planet {
+    content: url(/img/tiles/planet_tile.png);
+}
+
+.asteroid {
+    content: url(/img/tiles/asteroid_tile.jpg);
 }
 

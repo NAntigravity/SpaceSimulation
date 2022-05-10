@@ -8,28 +8,29 @@ import space.simulation.oop.game.model.*;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class MovableService {
-    public static boolean isEntityMotionAvailable(Entity entity, Direction direction, Boolean isCollidable) {
+    public static boolean isEntityMotionAvailable(Entity entity,
+                                                  Direction direction,
+                                                  Boolean isCollidable) {
         if (!(entity instanceof IMovable)) {
             return false;
         }
 
-        AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(SpaceSimulationConfiguration.class);
+        AnnotationConfigApplicationContext context =
+                new AnnotationConfigApplicationContext(SpaceSimulationConfiguration.class);
         ControlClass game = context.getBean(ControlClass.class);
 
         Coordinates tempCoordinates = getCoordinateChanges(entity.getCoordinates(), direction);
         int tempX = tempCoordinates.getX();
         int tempY = tempCoordinates.getY();
 
-        if (tempX >= 0 && tempX < game.getGameField().getWidth()
-                && tempY >= 0 && tempY < game.getGameField().getHeight()) {
+        if (isObjectInsidePerimeter(tempCoordinates, entity.getWidth(), entity.getHeight(), game.getGameField())) {
             if (!isCollidable) {
                 return true;
             }
             //если на данных координатах нет не IMovable объекта
             if (game.getGameField().getTiles().get(tempX).get(tempY).getTileType() == Tile.class) {
-                for (Entity e :
-                        game.getEntities()) {
-                    if (e.getCoordinateX() == tempX && e.getCoordinateY() == tempY) {
+                for (Entity e : game.getEntities()) {
+                    if (isCollidableWithVolumeObject(e, tempCoordinates, entity.getWidth(), entity.getHeight())) {
                         return false;
                     }
                 }
@@ -79,5 +80,29 @@ public class MovableService {
             default:
                 return Direction.UP;
         }
+    }
+
+    public static boolean isCollidableWithVolumeObject(@NotNull Entity e,
+                                                       @NotNull Coordinates coordinates,
+                                                       int width,
+                                                       int height) {
+        int intersectLUY = Math.max(coordinates.getY(), e.getCoordinateY());
+        int intersectLUX = Math.max(coordinates.getX(), e.getCoordinateX());
+        int intersectRDX = Math.min(coordinates.getX() + width, e.getCoordinateX() + e.getWidth());
+        int intersectRDY = Math.min(coordinates.getY() + height, e.getCoordinateY() + e.getHeight());
+        int intersectWidth = intersectRDX - intersectLUX;
+        int intersectHeight = intersectRDY - intersectLUY;
+        return intersectWidth > 0 && intersectHeight > 0;
+    }
+
+    public static boolean isObjectInsidePerimeter(@NotNull Coordinates coordinates, int width, int height, Map map) {
+        if (coordinates.getX() >= 0 && coordinates.getX() < map.getWidth()
+                && coordinates.getY() >= 0 && coordinates.getY() < map.getHeight()) {
+            if (coordinates.getX() + width >= 0 && coordinates.getX() + width < map.getWidth()
+                    && coordinates.getY() + height >= 0 && coordinates.getY() + height < map.getHeight()) {
+                return true;
+            }
+        }
+        return false;
     }
 }

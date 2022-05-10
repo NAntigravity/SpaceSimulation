@@ -23,7 +23,7 @@ public abstract class CelestialBodyWithMine extends Entity {
         this.width = radius;
         this.height = radius;
         mines = new ArrayList<>();
-        int minesAmount = (int) (Math.random() * MAX_MINE_PER_BODY_AMOUNT + MIN_MINE_PER_BODY_AMOUNT);
+        int minesAmount = (int) (Math.random() * (MAX_MINE_PER_BODY_AMOUNT - MIN_MINE_PER_BODY_AMOUNT + 1) + MIN_MINE_PER_BODY_AMOUNT);
         for (int i = 0; i < minesAmount; i++){
             mines.add(generateMineWithRandomResource());
         }

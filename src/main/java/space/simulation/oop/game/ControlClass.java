@@ -46,7 +46,7 @@ public class ControlClass {
     public void liveOneTick() {
         synchronized (lock) {
             for (Entity entity : getEntities()) {
-                    entity.existOneTick();
+                entity.existOneTick();
             }
             entityControlService.appendExistingEntityCollection();
         }
@@ -71,31 +71,31 @@ public class ControlClass {
     }
 
     private void generateStars() {
-        int starsAmount = (int) (Math.random() * MAX_STARS_AMOUNT + MIN_STARS_AMOUNT);
+        int starsAmount = (int) (Math.random() * (MAX_STARS_AMOUNT - MIN_STARS_AMOUNT + 1) + MIN_STARS_AMOUNT);
         for (int i = 0; i < starsAmount; i++) {
-            int starRadius = (int) (Math.random() * MAX_STAR_RADIUS + MIN_STAR_RADIUS);
-            int starDamageRadius = (int) (Math.random() * MAX_STAR_DAMAGE_RADIUS + MIN_STAR_DAMAGE_RADIUS);
-            int starRadiationRadius = (int) (Math.random() * MAX_STAR_RADIATION_RADIUS + MIN_STAR_RADIATION_RADIUS);
-            int starRadiationPower = (int) (Math.random() * MAX_STAR_RADIATION_POWER + MIN_STAR_RADIATION_POWER);
+            int starRadius = (int) (Math.random() * (MAX_STAR_RADIUS - MIN_STAR_RADIUS + 1) + MIN_STAR_RADIUS);
+            int starDamageRadius = (int) (Math.random() * (MAX_STAR_DAMAGE_RADIUS - MIN_STAR_DAMAGE_RADIUS + 1) + MIN_STAR_DAMAGE_RADIUS);
+            int starRadiationRadius = (int) (Math.random() * (MAX_STAR_RADIATION_RADIUS - MIN_STAR_RADIATION_RADIUS + 1) + MIN_STAR_RADIATION_RADIUS);
+            int starRadiationPower = (int) (Math.random() * (MAX_STAR_RADIATION_POWER - MIN_STAR_RADIATION_POWER + 1) + MIN_STAR_RADIATION_POWER);
             Entity entityToSpawn = new Star(starRadius, starRadiationRadius, starRadiationPower, starDamageRadius);
-            entityControlService.spawnEntityOnRandomCoordinates(entityToSpawn, gameField);
+            entityControlService.spawnEntityOnRandomCoordinates(entityToSpawn);
         }
     }
 
     private void generatePlanets() {
-        int planetsAmount = (int) (Math.random() * MAX_PLANET_AMOUNT + MIN_PLANET_AMOUNT);
+        int planetsAmount = (int) (Math.random() * (MAX_PLANET_AMOUNT - MIN_PLANET_AMOUNT + 1) + MIN_PLANET_AMOUNT);
         for (int i = 0; i < planetsAmount; i++) {
-            int planetRadius = (int) (Math.random() * MAX_PLANET_RADIUS + MIN_PLANET_RADIUS);
+            int planetRadius = (int) (Math.random() * (MAX_PLANET_RADIUS - MIN_PLANET_RADIUS + 1) + MIN_PLANET_RADIUS);
             Entity entityToSpawn = new Planet(planetRadius);
-            entityControlService.spawnEntityOnRandomCoordinates(entityToSpawn, gameField);
+            entityControlService.spawnEntityOnRandomCoordinates(entityToSpawn);
         }
     }
 
     private void generateAsteroids() {
-        int asteroidsAmount = (int) (Math.random() * MAX_ASTEROID_AMOUNT + MIN_ASTEROID_AMOUNT);
+        int asteroidsAmount = (int) (Math.random() * (MAX_ASTEROID_AMOUNT - MIN_ASTEROID_AMOUNT + 1) + MIN_ASTEROID_AMOUNT);
         for (int i = 0; i < asteroidsAmount; i++) {
             Entity entityToSpawn = new Asteroid(ASTEROID_RADIUS);
-            entityControlService.spawnEntityOnRandomCoordinates(entityToSpawn, gameField);
+            entityControlService.spawnEntityOnRandomCoordinates(entityToSpawn);
         }
     }
 

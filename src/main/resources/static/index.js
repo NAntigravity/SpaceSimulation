@@ -58,7 +58,7 @@ async function updateEntity() {
     let node;
     if (prevEntities != null) {
         for (let oldEntity of prevEntities) {
-            var tileType = entities.map.tiles[oldEntity.coordinateY][oldEntity.coordinateX].tileType[0];
+            var tileType = entities.map.tiles[oldEntity.coordinateY][oldEntity.coordinateX].tileType;
             var oldNode = map.childNodes[oldEntity.coordinateY].childNodes[oldEntity.coordinateX]
             switchImageByID(oldNode, tileType);
         }
@@ -70,7 +70,7 @@ async function updateEntity() {
             console.log(e.message);
         }
         if (node === undefined) continue;
-        switchEntityByID(node.entityType, unit);
+        switchEntityByID(unit.entityType, node);
     }
     prevEntities = entities.entities;
 }

@@ -19,7 +19,7 @@ public class Mine<T extends IFossil> extends Entity {
     public Class<T> resourceType;
 
     public Mine(@NotNull T entity) {
-        this(entity, (int) (Math.random() * MAX_MINE_POWER + MIN_MINE_POWER));
+        this(entity, (int) (Math.random() * (MAX_MINE_POWER - MIN_MINE_POWER + 1) + MIN_MINE_POWER));
     }
 
     public Mine(@NotNull T entity, Integer minePower) {

@@ -14,8 +14,15 @@ public class Asteroid extends CelestialBodyWithMine implements IAvailableForLand
     @Override
     public void move() {
         Direction direction = MovableService.getRandomDirection();
-        if (MovableService.isEntityMotionAvailable(this, direction,true)){
-            MovableService.move(this, direction);
+        boolean flag = MovableService.isEntityMotionAvailable(this, direction,true);
+        while (!flag) {
+            direction = MovableService.getRandomDirection();
+            flag = MovableService.isEntityMotionAvailable(this, direction,true);
+        }
+        MovableService.move(this, direction);
+        for (Mine mine :
+                getMines()) {
+            mine.setCoordinates(MovableService.getCoordinateChanges(mine.getCoordinates(), direction));
         }
     }
 }

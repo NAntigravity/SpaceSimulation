@@ -1,5 +1,7 @@
 package space.simulation.oop.game;
 
+import org.jetbrains.annotations.NotNull;
+import space.simulation.oop.game.model.Coordinates;
 import space.simulation.oop.game.model.Entity;
 import space.simulation.oop.game.model.Map;
 import space.simulation.oop.game.model.celestial.bodies.CelestialBodyWithMine;
@@ -21,18 +23,18 @@ public class EntityControlService {
         return entities;
     }
 
-    public void spawnEntityOnCoordinates(Entity entity, int x, int y) {
+    public void spawnEntityOnCoordinates(@NotNull Entity entity, int x, int y) {
         entity.setCoordinateX(x);
         entity.setCoordinateY(y);
         entitiesToCreate.add(entity);
     }
 
-    public void spawnEntityOnRandomCoordinates(Entity entity, Map map) {
+    public void spawnEntityOnRandomCoordinates(Entity entity) {
         boolean flag = false;
         while (!flag) {
             int x = ThreadLocalRandom.current().nextInt(0, gameField.getWidth());
             int y = ThreadLocalRandom.current().nextInt(0, gameField.getHeight());
-            flag = trySetupCoordinates(entity, map, x, y);
+            flag = trySetupCoordinates(entity, x, y);
         }
     }
 
@@ -41,7 +43,14 @@ public class EntityControlService {
         entitiesToCreate = new Vector<>();
     }
 
-    private boolean trySetupCoordinates(Entity entity, Map map, int x, int y) {
+    private boolean trySetupCoordinates(@NotNull Entity entity, int x, int y) {
+        if (!(MovableService.isObjectInsidePerimeter(new Coordinates(x, y),
+                entity.getWidth(),
+                entity.getHeight(),
+                gameField))) {
+            return false;
+        }
+
         boolean overlap = isOverlapByAnotherEntity(x, y, entity.getWidth(), entity.getHeight());
         if (!overlap) {
             spawnEntityOnCoordinates(entity, x, y);
@@ -64,13 +73,7 @@ public class EntityControlService {
             if (e instanceof Mine) {
                 continue;
             }
-            int intersectLUX = Math.max(x, e.getCoordinateX());
-            int intersectLUY = Math.max(y, e.getCoordinateY());
-            int intersectRDX = Math.min(x + width, e.getCoordinateX() + e.getWidth());
-            int intersectRDY = Math.min(y + height, e.getCoordinateY() + e.getHeight());
-            int intersectWidth = intersectRDX - intersectLUX;
-            int intersectHeight = intersectRDY - intersectLUY;
-            if (intersectWidth <= 0 || intersectHeight <= 0) {
+            if (!(MovableService.isCollidableWithVolumeObject(e, new Coordinates(x, y), width, height))) {
                 continue;
             }
             return true;

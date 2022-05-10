@@ -32,5 +32,9 @@ public abstract class Entity {
         this.setCoordinateY(newCoordinates.getY());
     }
 
-    public abstract void existOneTick();
+    public void existOneTick() {
+        if (this instanceof IMovable) {
+            ((IMovable) this).move();
+        }
+    }
 }

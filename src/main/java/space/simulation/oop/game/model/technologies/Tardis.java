@@ -5,9 +5,4 @@ public class Tardis extends Spaceship {
     public void makeNoise(){
         System.out.print("Вррруууум-вррррууууум");
     }
-
-    @Override
-    public void move() {
-
-    }
 }

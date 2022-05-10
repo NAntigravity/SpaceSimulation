@@ -44,6 +44,9 @@ public class ControlClass {
 
     public void liveOneTick() {
         synchronized (lock) {
+            for (Entity entity : getEntities()) {
+                    entity.existOneTick();
+            }
             entityControlService.appendExistingEntityCollection();
         }
     }

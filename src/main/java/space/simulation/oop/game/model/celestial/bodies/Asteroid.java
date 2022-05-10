@@ -12,11 +12,6 @@ public class Asteroid extends CelestialBodyWithMine implements IAvailableForLand
     }
 
     @Override
-    public void existOneTick() {
-
-    }
-
-    @Override
     public void move() {
         Direction direction = MovableService.getRandomDirection();
         if (MovableService.isEntityMotionAvailable(this, direction,true)){

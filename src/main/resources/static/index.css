@@ -35,3 +35,16 @@ img {
     content: url(/img/tiles/asteroid_tile.jpg);
 }
 
+.space_uber {
+    content: url(/img/ships/space_uber.png);
+}
+
+.scout_ship {
+    content: url(/img/ships/scout_ship.png);
+}
+
+.space_barge {
+    content: url(/img/ships/space_barge.png);
+}
+
+

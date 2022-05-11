@@ -17,6 +17,15 @@ function switchEntityByID(entityType, entity) {
         case "space.simulation.oop.game.model.celestial.bodies.Asteroid":
             entity.className = "asteroid";
             break;
+        case "space.simulation.oop.game.model.technologies.SpaceBarge":
+            entity.className = "space_barge";
+            break;
+        case "space.simulation.oop.game.model.technologies.ScoutShip":
+            entity.className = "scout_ship";
+            break;
+        case "space.simulation.oop.game.model.technologies.SpaceUber":
+            entity.className = "space_uber";
+            break;
     }
 }
 

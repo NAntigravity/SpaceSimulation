@@ -1,6 +1,6 @@
 function switchImageByID(tile, ID) {
     switch (ID) {
-        case "space.simulation.oop.game.model.Tile":
+        case "space.simulation.oop.game.model.map.Tile":
             tile.className = "space";
             break;
         case "space.simulation.oop.game.model.celestial.bodies.Star":

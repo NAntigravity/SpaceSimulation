@@ -1,4 +1,4 @@
-package space.simulation.oop.game;
+package space.simulation.oop.game.configs;
 
 public final class SpaceSimulationConstants {
     //region STAR

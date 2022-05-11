@@ -3,15 +3,16 @@ package space.simulation.oop.game;
 import lombok.Getter;
 import space.simulation.oop.game.model.Entity;
 import space.simulation.oop.game.model.IMovable;
-import space.simulation.oop.game.model.Map;
 import space.simulation.oop.game.model.celestial.bodies.Asteroid;
 import space.simulation.oop.game.model.celestial.bodies.Mine;
 import space.simulation.oop.game.model.celestial.bodies.Planet;
 import space.simulation.oop.game.model.celestial.bodies.Star;
+import space.simulation.oop.game.model.map.Map;
+import space.simulation.oop.game.services.EntityControlService;
 
-import java.util.Vector;
+import java.util.ArrayList;
 
-import static space.simulation.oop.game.SpaceSimulationConstants.*;
+import static space.simulation.oop.game.configs.SpaceSimulationConstants.*;
 
 public class ControlClass {
     private final Map gameField;
@@ -33,7 +34,7 @@ public class ControlClass {
         return INSTANCE;
     }
 
-    public Vector<Entity> getEntities() {
+    public ArrayList<Entity> getEntities() {
         return entityControlService.getEntities();
     }
 
@@ -48,12 +49,13 @@ public class ControlClass {
             for (Entity entity : getEntities()) {
                 entity.existOneTick();
             }
+            entityControlService.clearKilledEntities();
             entityControlService.appendExistingEntityCollection();
         }
     }
 
     public Map getGameField() {
-        Vector<Entity> entities = getEntities();
+        ArrayList<Entity> entities = getEntities();
         for (Entity entity :
                 entities) {
             if (!(entity instanceof IMovable || entity instanceof Mine)) {

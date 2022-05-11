@@ -1,4 +1,4 @@
-package space.simulation.oop.game.model;
+package space.simulation.oop.game.model.map;
 
 import lombok.Getter;
 import lombok.Setter;

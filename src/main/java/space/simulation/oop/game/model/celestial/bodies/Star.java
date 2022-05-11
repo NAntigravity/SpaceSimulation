@@ -2,7 +2,12 @@ package space.simulation.oop.game.model.celestial.bodies;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import space.simulation.oop.game.ControlClass;
+import space.simulation.oop.game.configs.SpaceSimulationConfiguration;
 import space.simulation.oop.game.model.Entity;
+import space.simulation.oop.game.model.technologies.Spaceship;
+import space.simulation.oop.game.services.MovableService;
 
 public class Star extends Entity {
     @Getter
@@ -29,9 +34,23 @@ public class Star extends Entity {
 
     @Override
     public void existOneTick() {
+        exterminate();
     }
 
     private void exterminate(){
+        AnnotationConfigApplicationContext context =
+                new AnnotationConfigApplicationContext(SpaceSimulationConfiguration.class);
+        ControlClass game = context.getBean(ControlClass.class);
 
+        var allEntities = game.getEntities();
+        for (Entity entity : allEntities) {
+            if (!(entity instanceof Spaceship)) {
+                continue;
+            }
+            var distance = MovableService.getDistanceToEntity(entity, this.getCoordinates(), this.getWidth(), this.getHeight());
+            if (distance <= damageRadius) {
+                game.getEntityControlService().killEntity(entity);
+            }
+        }
     }
 }

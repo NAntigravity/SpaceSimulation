@@ -12,8 +12,8 @@ import space.simulation.oop.game.model.resources.Vespen;
 import java.util.ArrayList;
 import java.util.List;
 
-import static space.simulation.oop.game.SpaceSimulationConstants.MAX_MINE_PER_BODY_AMOUNT;
-import static space.simulation.oop.game.SpaceSimulationConstants.MIN_MINE_PER_BODY_AMOUNT;
+import static space.simulation.oop.game.configs.SpaceSimulationConstants.MAX_MINE_PER_BODY_AMOUNT;
+import static space.simulation.oop.game.configs.SpaceSimulationConstants.MIN_MINE_PER_BODY_AMOUNT;
 
 public abstract class CelestialBodyWithMine extends Entity {
     @Getter

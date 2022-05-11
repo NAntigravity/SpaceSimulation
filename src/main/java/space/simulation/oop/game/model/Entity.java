@@ -2,6 +2,7 @@ package space.simulation.oop.game.model;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.jetbrains.annotations.NotNull;
 
 public abstract class Entity {
     @Getter
@@ -24,10 +25,14 @@ public abstract class Entity {
     @Setter
     protected Class entityType;
 
+    @Getter
+    @Setter
+    protected boolean isDead = false;
+
     public Coordinates getCoordinates() {
         return new Coordinates(getCoordinateX(), getCoordinateY());
     }
-    public void setCoordinates(Coordinates newCoordinates) {
+    public void setCoordinates(@NotNull Coordinates newCoordinates) {
         this.setCoordinateX(newCoordinates.getX());
         this.setCoordinateY(newCoordinates.getY());
     }

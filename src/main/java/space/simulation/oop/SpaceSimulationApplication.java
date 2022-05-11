@@ -4,7 +4,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import space.simulation.oop.game.ControlClass;
-import space.simulation.oop.game.SpaceSimulationConfiguration;
+import space.simulation.oop.game.configs.SpaceSimulationConfiguration;
 
 @SpringBootApplication
 public class SpaceSimulationApplication {

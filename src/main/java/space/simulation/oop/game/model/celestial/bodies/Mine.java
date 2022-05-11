@@ -6,8 +6,8 @@ import org.jetbrains.annotations.NotNull;
 import space.simulation.oop.game.model.Entity;
 import space.simulation.oop.game.model.resources.IFossil;
 
-import static space.simulation.oop.game.SpaceSimulationConstants.MAX_MINE_POWER;
-import static space.simulation.oop.game.SpaceSimulationConstants.MIN_MINE_POWER;
+import static space.simulation.oop.game.configs.SpaceSimulationConstants.MAX_MINE_POWER;
+import static space.simulation.oop.game.configs.SpaceSimulationConstants.MIN_MINE_POWER;
 
 public class Mine<T extends IFossil> extends Entity {
 

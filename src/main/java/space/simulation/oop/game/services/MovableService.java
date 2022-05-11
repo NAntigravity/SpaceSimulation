@@ -1,11 +1,17 @@
-package space.simulation.oop.game;
+package space.simulation.oop.game.services;
 
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import space.simulation.oop.game.ControlClass;
+import space.simulation.oop.game.configs.SpaceSimulationConfiguration;
 import space.simulation.oop.game.model.*;
+import space.simulation.oop.game.model.map.Map;
+import space.simulation.oop.game.model.map.Tile;
 
 import java.util.concurrent.ThreadLocalRandom;
+
+import static java.lang.Math.sqrt;
 
 public class MovableService {
     public static boolean isEntityMotionAvailable(Entity entity,
@@ -104,5 +110,44 @@ public class MovableService {
             }
         }
         return false;
+    }
+
+    @Contract(value = "_, _, _, _ -> new", pure = true)
+    public static @NotNull Double getDistanceToEntity(@NotNull Entity e,
+                                                      @NotNull Coordinates coordinates,
+                                                      int width,
+                                                      int height) {
+        double minDistance;
+
+        Coordinates centerEntityOne = new Coordinates(coordinates.getX() + width / 2, coordinates.getY() + height / 2);
+        Coordinates centerEntityTwo = new Coordinates(e.getCoordinateX() + e.getWidth() / 2, e.getCoordinateY() + e.getHeight() / 2);
+
+        double distanceBetweenCentersX = Math.abs(centerEntityTwo.getX() - centerEntityOne.getX());
+        double distanceBetweenCentersY = Math.abs(centerEntityTwo.getY() - centerEntityOne.getY());
+
+        // Два прямоугольника не пересекаются. Есть два частично перекрывающихся прямоугольника в направлении оси X. Минимальное расстояние - это расстояние между нижней линией верхнего прямоугольника и верхней линией нижнего прямоугольника
+        if ((distanceBetweenCentersX < ((width + e.getWidth()) / 2)) && (distanceBetweenCentersY >= ((height + e.getHeight()) / 2))) {
+            minDistance = distanceBetweenCentersY - ((height + e.getHeight()) / 2);
+        }
+
+        // Два прямоугольника не пересекаются. Есть два частично перекрывающихся прямоугольника в направлении оси Y. Минимальное расстояние - это расстояние между правой линией левого прямоугольника и левой линией правого прямоугольника
+        else if ((distanceBetweenCentersX >= ((width + e.getWidth()) / 2)) && (distanceBetweenCentersY < ((height + e.getHeight()) / 2))) {
+            minDistance = distanceBetweenCentersX - ((width + e.getWidth()) / 2);
+        }
+
+        // Два прямоугольника не пересекаются, два прямоугольника не пересекаются в направлениях оси X и Y, минимальное расстояние - это расстояние между двумя ближайшими вершинами
+        // Используя теорему Пифагора, легко вычислить это расстояние
+        else if ((distanceBetweenCentersX >= ((width + e.getWidth()) / 2)) && (distanceBetweenCentersY >= ((height + e.getHeight()) / 2))) {
+            double deltaX = distanceBetweenCentersX - ((width + e.getWidth()) / 2);
+            double deltaY = distanceBetweenCentersY - ((height + e.getHeight()) / 2);
+            minDistance = sqrt(deltaX * deltaX + deltaY * deltaY);
+        }
+
+        // Пересечение двух прямоугольников, минимальное расстояние отрицательное, возвращаем -1
+        else {
+            minDistance = -1;
+        }
+
+        return minDistance;
     }
 }

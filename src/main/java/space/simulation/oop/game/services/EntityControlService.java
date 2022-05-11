@@ -1,25 +1,26 @@
-package space.simulation.oop.game;
+package space.simulation.oop.game.services;
 
 import org.jetbrains.annotations.NotNull;
 import space.simulation.oop.game.model.Coordinates;
 import space.simulation.oop.game.model.Entity;
-import space.simulation.oop.game.model.Map;
 import space.simulation.oop.game.model.celestial.bodies.CelestialBodyWithMine;
 import space.simulation.oop.game.model.celestial.bodies.Mine;
+import space.simulation.oop.game.model.map.Map;
 
-import java.util.Vector;
+import java.util.ArrayList;
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.stream.Collectors;
 
 public class EntityControlService {
-    private final Vector<Entity> entities = new Vector<>();
+    private ArrayList<Entity> entities = new ArrayList<>();
     private final Map gameField;
-    private Vector<Entity> entitiesToCreate = new Vector<>();
+    private ArrayList<Entity> entitiesToCreate = new ArrayList<>();
 
     public EntityControlService(Map map) {
         gameField = map;
     }
 
-    public Vector<Entity> getEntities() {
+    public ArrayList<Entity> getEntities() {
         return entities;
     }
 
@@ -40,7 +41,7 @@ public class EntityControlService {
 
     public void appendExistingEntityCollection() {
         entities.addAll(entitiesToCreate);
-        entitiesToCreate = new Vector<>();
+        entitiesToCreate = new ArrayList<>();
     }
 
     private boolean trySetupCoordinates(@NotNull Entity entity, int x, int y) {
@@ -79,5 +80,13 @@ public class EntityControlService {
             return true;
         }
         return false;
+    }
+
+    public void killEntity(@NotNull Entity entity) {
+        entity.setDead(true);
+    }
+
+    public void clearKilledEntities() {
+        entities = entities.stream().filter(entity -> !entity.isDead()).collect(Collectors.toCollection(ArrayList::new));
     }
 }

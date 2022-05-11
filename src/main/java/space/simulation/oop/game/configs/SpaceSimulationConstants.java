@@ -33,4 +33,10 @@ public final class SpaceSimulationConstants {
     public static final int MIN_ASTEROID_AMOUNT = 3;
     public static final int ASTEROID_RADIUS = 1;
     //endregion
+
+    //region ASTEROID
+    public static final int MAX_SPACESHIP_AMOUNT = 10;
+    public static final int MIN_SPACESHIP_AMOUNT = 5;
+    public static final int SPACESHIP_RADIUS = 1;
+    //endregion
 }

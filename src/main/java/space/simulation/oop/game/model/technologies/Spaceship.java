@@ -22,9 +22,11 @@ public abstract class Spaceship extends Entity implements IMovable {
     @Setter
     protected Entity target;
 
-    public Spaceship() {
-        super();
+    public Spaceship(Integer radius) {
         target = null;
+        this.width = radius;
+        this.height = radius;
+        entityType = Spaceship.class;
     }
 
     public void makeNoise() {

@@ -125,25 +125,24 @@ public class MovableService {
         double distanceBetweenCentersX = Math.abs(centerEntityTwo.getX() - centerEntityOne.getX());
         double distanceBetweenCentersY = Math.abs(centerEntityTwo.getY() - centerEntityOne.getY());
 
-        // Два прямоугольника не пересекаются. Есть два частично перекрывающихся прямоугольника в направлении оси X. Минимальное расстояние - это расстояние между нижней линией верхнего прямоугольника и верхней линией нижнего прямоугольника
+        // The two rectangles do not overlap. There are two overlapping rectangles in the X direction.
         if ((distanceBetweenCentersX < ((width + e.getWidth()) / 2)) && (distanceBetweenCentersY >= ((height + e.getHeight()) / 2))) {
             minDistance = distanceBetweenCentersY - ((height + e.getHeight()) / 2);
         }
 
-        // Два прямоугольника не пересекаются. Есть два частично перекрывающихся прямоугольника в направлении оси Y. Минимальное расстояние - это расстояние между правой линией левого прямоугольника и левой линией правого прямоугольника
+        // The two rectangles do not overlap. There are two overlapping rectangles in the Y direction.
         else if ((distanceBetweenCentersX >= ((width + e.getWidth()) / 2)) && (distanceBetweenCentersY < ((height + e.getHeight()) / 2))) {
             minDistance = distanceBetweenCentersX - ((width + e.getWidth()) / 2);
         }
 
-        // Два прямоугольника не пересекаются, два прямоугольника не пересекаются в направлениях оси X и Y, минимальное расстояние - это расстояние между двумя ближайшими вершинами
-        // Используя теорему Пифагора, легко вычислить это расстояние
+        // Two rectangles do not intersect, two rectangles do not intersect in the X and Y directions
         else if ((distanceBetweenCentersX >= ((width + e.getWidth()) / 2)) && (distanceBetweenCentersY >= ((height + e.getHeight()) / 2))) {
             double deltaX = distanceBetweenCentersX - ((width + e.getWidth()) / 2);
             double deltaY = distanceBetweenCentersY - ((height + e.getHeight()) / 2);
             minDistance = sqrt(deltaX * deltaX + deltaY * deltaY);
         }
 
-        // Пересечение двух прямоугольников, минимальное расстояние отрицательное, возвращаем -1
+        // Intersection of two rectangles
         else {
             minDistance = -1;
         }

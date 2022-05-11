@@ -87,6 +87,8 @@ public class EntityControlService {
     }
 
     public void clearKilledEntities() {
-        entities = entities.stream().filter(entity -> !entity.isDead()).collect(Collectors.toCollection(ArrayList::new));
+        entities = entities.stream()
+                .filter(entity -> !entity.isDead())
+                .collect(Collectors.toCollection(ArrayList::new));
     }
 }

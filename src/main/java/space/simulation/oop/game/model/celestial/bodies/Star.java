@@ -6,7 +6,7 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 import space.simulation.oop.game.ControlClass;
 import space.simulation.oop.game.configs.SpaceSimulationConfiguration;
 import space.simulation.oop.game.model.Entity;
-import space.simulation.oop.game.model.technologies.Spaceship;
+import space.simulation.oop.game.model.technologies.*;
 import space.simulation.oop.game.services.MovableService;
 
 public class Star extends Entity {
@@ -44,7 +44,15 @@ public class Star extends Entity {
 
         var allEntities = game.getEntities();
         for (Entity entity : allEntities) {
-            if (!(entity instanceof Spaceship)) {
+            //Because java can't catch parent class
+            //And because java is piece of programming language
+            //YEEEES!! JAVA IS TRUE OOP!
+            //OF COURSE!
+            //AAAAAAAAAAAAAAAAAAAAA
+            if (!(entity instanceof ScoutShip ||
+                    entity instanceof SpaceBarge ||
+                    entity instanceof SpaceUber ||
+                    entity instanceof Tardis)) {
                 continue;
             }
             var distance = MovableService.getDistanceToEntity(entity, this.getCoordinates(), this.getWidth(), this.getHeight());

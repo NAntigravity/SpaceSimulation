@@ -42,4 +42,8 @@ public final class SpaceSimulationConstants {
     //region SPACE_BARGES
     public static final int SPACE_BARGE_INVENTORY_CAPACITY = 50;
     //endregion
+
+    //region ROBOTS
+    public static final int ROBOTS_INVENTORY_CAPACITY = 10;
+    //endregion
 }

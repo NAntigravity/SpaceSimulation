@@ -149,4 +149,26 @@ public class MovableService {
 
         return minDistance;
     }
+
+    public static void moveToTarget(Entity currentEntity, Entity target) {
+        if (target == null) {
+            return;
+        }
+
+        int targetX = target.getCoordinateX();
+        int targetY = target.getCoordinateY();
+
+        if (targetX > currentEntity.getCoordinateX()) {
+            move(currentEntity, Direction.RIGHT);
+            return;
+        } else if (targetX < currentEntity.getCoordinateX()) {
+            move(currentEntity, Direction.LEFT);
+            return;
+        }
+        if (targetY > currentEntity.getCoordinateY()) {
+            MovableService.move(currentEntity, Direction.DOWN);
+        } else if (targetY < currentEntity.getCoordinateY()) {
+            MovableService.move(currentEntity, Direction.UP);
+        }
+    }
 }

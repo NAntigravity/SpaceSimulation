@@ -1,12 +1,10 @@
 package space.simulation.oop.game.model.technologies;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import space.simulation.oop.game.ControlClass;
 import space.simulation.oop.game.configs.SpaceSimulationConfiguration;
-import space.simulation.oop.game.model.Direction;
 import space.simulation.oop.game.model.Entity;
 import space.simulation.oop.game.model.IMovable;
 import space.simulation.oop.game.model.celestial.bodies.Asteroid;
@@ -26,7 +24,7 @@ public abstract class Spaceship extends EntityWithInventory implements IMovable 
 
     @Getter
     @Setter
-    protected ArrayList<RobotMiner> robots;
+    protected ArrayList<RobotMiner> landedRobots;
 
     @Getter
     @Setter
@@ -47,7 +45,7 @@ public abstract class Spaceship extends EntityWithInventory implements IMovable 
     @Override
     public void move() {
         if (!landed) {
-            moveToTarget();
+            MovableService.moveToTarget(this, target);
         }
     }
 
@@ -62,29 +60,6 @@ public abstract class Spaceship extends EntityWithInventory implements IMovable 
             }
         }
         makeNoise();
-    }
-
-
-    protected void moveToTarget() {
-        if (target == null) {
-            return;
-        }
-
-        int targetX = target.getCoordinateX();
-        int targetY = target.getCoordinateY();
-
-        if (targetX > coordinateX) {
-            MovableService.move(this, Direction.RIGHT);
-            return;
-        } else if (targetX < coordinateX) {
-            MovableService.move(this, Direction.LEFT);
-            return;
-        }
-        if (targetY > coordinateY) {
-            MovableService.move(this, Direction.DOWN);
-        } else if (targetY < coordinateY) {
-            MovableService.move(this, Direction.UP);
-        }
     }
 
     // TODO: rewrite the logic of the function below, as long as right now it is just a stub for test
@@ -153,8 +128,5 @@ public abstract class Spaceship extends EntityWithInventory implements IMovable 
     protected void landingOnSpaceStation() {
 
     }
-
-    protected boolean robotSearch() {
-        return false;
-    }
+    
 }

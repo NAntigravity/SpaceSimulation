@@ -19,6 +19,14 @@ public abstract class EntityWithInventory extends Entity {
         this.inventoryCapacity = 1;
     }
 
+    protected boolean isInventoryNotFilled() {
+        return getEmptySpaceAmount() != 0;
+    }
+
+    protected boolean isInventoryEmpty() {
+        return getEmptySpaceAmount().equals(inventoryCapacity);
+    }
+
     protected boolean tryDeleteFromInventory(Class<IInventoryItem> itemType, Integer itemAmount) {
         if (inventory.containsKey(itemType)) {
             if (inventory.get(itemType) > itemAmount) {

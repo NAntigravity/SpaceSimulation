@@ -33,7 +33,7 @@ public class MovableService {
             if (!isCollidable) {
                 return true;
             }
-            //если на данных координатах нет не IMovable объекта
+            //on these coordinates there are no objects that do not implement IMovable
             if (game.getGameField().getTiles().get(tempX).get(tempY).getTileType() == Tile.class) {
                 for (Entity e : game.getEntities()) {
                     if (isCollidableWithVolumeObject(e, tempCoordinates, entity.getWidth(), entity.getHeight())) {

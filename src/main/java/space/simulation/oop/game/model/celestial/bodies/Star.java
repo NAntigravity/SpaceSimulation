@@ -37,7 +37,7 @@ public class Star extends Entity {
         exterminate();
     }
 
-    private void exterminate(){
+    private void exterminate() {
         AnnotationConfigApplicationContext context =
                 new AnnotationConfigApplicationContext(SpaceSimulationConfiguration.class);
         ControlClass game = context.getBean(ControlClass.class);

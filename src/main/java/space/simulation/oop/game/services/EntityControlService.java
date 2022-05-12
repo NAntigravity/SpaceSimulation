@@ -44,7 +44,7 @@ public class EntityControlService {
         entitiesToCreate = new ArrayList<>();
     }
 
-    private boolean trySetupCoordinates(@NotNull Entity entity, int x, int y) {
+    private synchronized boolean trySetupCoordinates(@NotNull Entity entity, int x, int y) {
         if (!(MovableService.isObjectInsidePerimeter(new Coordinates(x, y),
                 entity.getWidth(),
                 entity.getHeight(),
@@ -69,7 +69,7 @@ public class EntityControlService {
         return false;
     }
 
-    private boolean isOverlapByAnotherEntity(int x, int y, int width, int height) {
+    public boolean isOverlapByAnotherEntity(int x, int y, int width, int height) {
         for (Entity e : entities) {
             if (e instanceof Mine) {
                 continue;

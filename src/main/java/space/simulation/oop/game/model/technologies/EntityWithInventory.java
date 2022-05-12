@@ -1,11 +1,12 @@
 package space.simulation.oop.game.model.technologies;
 
 import lombok.Getter;
+import space.simulation.oop.game.model.Entity;
 import space.simulation.oop.game.model.IInventoryItem;
 
 import java.util.Map;
 
-public abstract class EntityWithInventory {
+public abstract class EntityWithInventory extends Entity {
     @Getter
     protected Map<Class<IInventoryItem>, Integer> inventory;
 

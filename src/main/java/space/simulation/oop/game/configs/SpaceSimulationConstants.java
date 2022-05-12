@@ -2,11 +2,11 @@ package space.simulation.oop.game.configs;
 
 public final class SpaceSimulationConstants {
     //region STAR
-    public static final int MAX_STARS_AMOUNT = 5;
-    public static final int MIN_STARS_AMOUNT = 1;
+    public static final int MAX_STARS_AMOUNT = 2;
+    public static final int MIN_STARS_AMOUNT = 0;
     public static final int MAX_STAR_RADIUS = 3;
     public static final int MIN_STAR_RADIUS = 1;
-    public static final int MAX_STAR_DAMAGE_RADIUS = 3;
+    public static final int MAX_STAR_DAMAGE_RADIUS = 2;
     public static final int MIN_STAR_DAMAGE_RADIUS = 1;
     public static final int MAX_STAR_RADIATION_RADIUS = 10;
     public static final int MIN_STAR_RADIATION_RADIUS = 4;
@@ -23,7 +23,7 @@ public final class SpaceSimulationConstants {
 
     //region PLANET
     public static final int MAX_PLANET_AMOUNT = 5;
-    public static final int MIN_PLANET_AMOUNT = 1;
+    public static final int MIN_PLANET_AMOUNT = 2;
     public static final int MAX_PLANET_RADIUS = 3;
     public static final int MIN_PLANET_RADIUS = 1;
     //endregion
@@ -45,5 +45,10 @@ public final class SpaceSimulationConstants {
 
     //region ROBOTS
     public static final int ROBOTS_INVENTORY_CAPACITY = 10;
+    //endregion
+
+    //region SPACE_UBER
+    public static final int SPACE_UBER_ROBOTS_AMOUNT_PER_START = 5;
+    public static final int SPACE_UBER_INVENTORY_CAPACITY = 20;
     //endregion
 }

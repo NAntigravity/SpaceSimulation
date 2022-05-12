@@ -112,13 +112,13 @@ public class ControlClass {
             Entity entityToSpawn;
             switch (spawnEntityNumber) {
                 case 1:
-                    entityToSpawn = new SpaceBarge(SPACESHIP_RADIUS);
+                    entityToSpawn = new SpaceBarge();
                     break;
                 case 2:
-                    entityToSpawn = new SpaceUber(SPACESHIP_RADIUS);
+                    entityToSpawn = new SpaceUber();
                     break;
                 default:
-                    entityToSpawn = new ScoutShip(SPACESHIP_RADIUS);
+                    entityToSpawn = new ScoutShip();
                     break;
             }
             entityControlService.spawnEntityOnRandomCoordinates(entityToSpawn);

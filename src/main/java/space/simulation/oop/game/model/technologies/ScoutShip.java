@@ -2,8 +2,8 @@ package space.simulation.oop.game.model.technologies;
 
 public class ScoutShip extends Spaceship {
 
-    public ScoutShip(Integer radius) {
-        super(radius);
+    public ScoutShip() {
+        super();
         entityType = ScoutShip.class;
     }
 }

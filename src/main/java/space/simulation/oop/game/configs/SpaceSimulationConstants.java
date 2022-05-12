@@ -37,6 +37,9 @@ public final class SpaceSimulationConstants {
     //region ASTEROID
     public static final int MAX_SPACESHIP_AMOUNT = 10;
     public static final int MIN_SPACESHIP_AMOUNT = 5;
-    public static final int SPACESHIP_RADIUS = 1;
+    //endregion
+
+    //region SPACE_BARGES
+    public static final int SPACE_BARGE_INVENTORY_CAPACITY = 50;
     //endregion
 }

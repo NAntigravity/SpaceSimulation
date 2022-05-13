@@ -10,6 +10,7 @@ import space.simulation.oop.game.model.celestial.bodies.Star;
 import space.simulation.oop.game.model.map.Map;
 import space.simulation.oop.game.model.technologies.ScoutShip;
 import space.simulation.oop.game.model.technologies.SpaceBarge;
+import space.simulation.oop.game.model.technologies.SpaceStation;
 import space.simulation.oop.game.model.technologies.SpaceUber;
 import space.simulation.oop.game.services.EntityControlService;
 
@@ -46,6 +47,7 @@ public class ControlClass {
         generatePlanets();
         generateAsteroids();
         generateSpaceships();
+        generateSpaceStations();
     }
 
     public void liveOneTick() {
@@ -105,6 +107,14 @@ public class ControlClass {
         }
     }
 
+    private void generateSpaceStations() {
+        int asteroidsAmount = (int) (Math.random() * (MAX_SPACE_STATION_AMOUNT - MIN_SPACE_STATION_AMOUNT + 1) + MIN_ASTEROID_AMOUNT);
+        for (int i = 0; i < asteroidsAmount; i++) {
+            Entity entityToSpawn = new SpaceStation();
+            entityControlService.spawnEntityOnRandomCoordinates(entityToSpawn);
+        }
+    }
+
     private void generateSpaceships() {
         int spaceshipAmount = (int) (Math.random() * (MAX_SPACESHIP_AMOUNT - MIN_SPACESHIP_AMOUNT + 1) + MIN_SPACESHIP_AMOUNT);
         for (int i = 0; i < spaceshipAmount; i++) {
@@ -112,13 +122,13 @@ public class ControlClass {
             Entity entityToSpawn;
             switch (spawnEntityNumber) {
                 case 1:
-                    entityToSpawn = new SpaceBarge(SPACESHIP_RADIUS);
+                    entityToSpawn = new SpaceBarge();
                     break;
                 case 2:
-                    entityToSpawn = new SpaceUber(SPACESHIP_RADIUS);
+                    entityToSpawn = new SpaceUber();
                     break;
                 default:
-                    entityToSpawn = new ScoutShip(SPACESHIP_RADIUS);
+                    entityToSpawn = new ScoutShip();
                     break;
             }
             entityControlService.spawnEntityOnRandomCoordinates(entityToSpawn);

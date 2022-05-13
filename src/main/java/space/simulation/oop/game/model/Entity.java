@@ -7,11 +7,11 @@ import org.jetbrains.annotations.NotNull;
 public abstract class Entity {
     @Getter
     @Setter
-    protected Integer height;
+    protected Integer height = 1;
 
     @Getter
     @Setter
-    protected Integer width;
+    protected Integer width = 1;
 
     @Getter
     @Setter

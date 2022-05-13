@@ -37,18 +37,18 @@ public class Star extends Entity {
         exterminate();
     }
 
-    private void exterminate(){
+    private void exterminate() {
         AnnotationConfigApplicationContext context =
                 new AnnotationConfigApplicationContext(SpaceSimulationConfiguration.class);
         ControlClass game = context.getBean(ControlClass.class);
 
         var allEntities = game.getEntities();
         for (Entity entity : allEntities) {
-            //Because java can't catch parent class
-            //And because java is piece of programming language
-            //YEEEES!! JAVA IS TRUE OOP!
-            //OF COURSE!
-            //AAAAAAAAAAAAAAAAAAAAA
+            // Because java can't catch parent class
+            // And because java is piece of programming language
+            // YEEEES!! JAVA IS TRUE OOP!
+            // OF COURSE!
+            // AAAAAAAAAAAAAAAAAAAAA
             if (!(entity instanceof ScoutShip ||
                     entity instanceof SpaceBarge ||
                     entity instanceof SpaceUber ||
@@ -57,6 +57,11 @@ public class Star extends Entity {
             }
             var distance = MovableService.getDistanceToEntity(entity, this.getCoordinates(), this.getWidth(), this.getHeight());
             if (distance <= damageRadius) {
+                // Landed spaceships defended from radiation by CelestialBody atmosphere
+                // (yes, asteroids has atmosphere too))0)
+                if(((Spaceship) entity).isLanded()) {
+                    continue;
+                }
                 game.getEntityControlService().killEntity(entity);
             }
         }

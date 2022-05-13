@@ -1,12 +1,13 @@
 package space.simulation.oop.game.model.technologies;
 
 public class Tardis extends Spaceship {
-    public Tardis(Integer radius) {
-        super(radius);
+    public Tardis() {
+        super();
+        this.availableForLandingPredicate = entity -> false;
     }
 
     @Override
     public void makeNoise(){
-        System.out.print("Вррруууум-вррррууууум");
+        System.out.println("Вррруууум-вррррууууум");
     }
 }

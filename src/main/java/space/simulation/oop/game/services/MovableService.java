@@ -33,7 +33,7 @@ public class MovableService {
             if (!isCollidable) {
                 return true;
             }
-            //если на данных координатах нет не IMovable объекта
+            //on these coordinates there are no objects that do not implement IMovable
             if (game.getGameField().getTiles().get(tempX).get(tempY).getTileType() == Tile.class) {
                 for (Entity e : game.getEntities()) {
                     if (isCollidableWithVolumeObject(e, tempCoordinates, entity.getWidth(), entity.getHeight())) {
@@ -148,5 +148,27 @@ public class MovableService {
         }
 
         return minDistance;
+    }
+
+    public static void moveToTarget(Entity currentEntity, Entity target) {
+        if (target == null) {
+            return;
+        }
+
+        int targetX = target.getCoordinateX();
+        int targetY = target.getCoordinateY();
+
+        if (targetX > currentEntity.getCoordinateX()) {
+            move(currentEntity, Direction.RIGHT);
+            return;
+        } else if (targetX < currentEntity.getCoordinateX()) {
+            move(currentEntity, Direction.LEFT);
+            return;
+        }
+        if (targetY > currentEntity.getCoordinateY()) {
+            MovableService.move(currentEntity, Direction.DOWN);
+        } else if (targetY < currentEntity.getCoordinateY()) {
+            MovableService.move(currentEntity, Direction.UP);
+        }
     }
 }

@@ -9,14 +9,18 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 import space.simulation.oop.game.ControlClass;
 import space.simulation.oop.game.configs.SpaceSimulationConfiguration;
 import space.simulation.oop.game.model.Entity;
+import space.simulation.oop.game.model.IInventoryItem;
 import space.simulation.oop.game.model.IMovable;
+import space.simulation.oop.game.model.IPurchased;
 import space.simulation.oop.game.model.celestial.bodies.Asteroid;
 import space.simulation.oop.game.model.celestial.bodies.CelestialBodyWithMine;
 import space.simulation.oop.game.model.celestial.bodies.Mine;
 import space.simulation.oop.game.model.celestial.bodies.Planet;
+import space.simulation.oop.game.model.resources.IFossil;
 import space.simulation.oop.game.services.MovableService;
 
 import java.util.ArrayList;
+import java.util.Map;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
@@ -78,6 +82,28 @@ public abstract class Spaceship extends EntityWithInventory implements IMovable 
                 new AnnotationConfigApplicationContext(SpaceSimulationConfiguration.class);
         ControlClass game = context.getBean(ControlClass.class);
 
+        if (!isInventoryNotFilled()) {
+            var allSpaceStations = game.getEntities().stream()
+                    .filter(entity -> entity.getEntityType() == SpaceStation.class)
+                    .collect(Collectors.toList());
+            int maxPrice = 0;
+            Entity targetSpaceStation = null;
+            for (Entity spaceStation :
+                    allSpaceStations) {
+                Integer newPrice = calculateInventoryPrice((SpaceStation) spaceStation);
+                if (newPrice == null) {
+                    continue;
+                }
+                if (newPrice > maxPrice) {
+                    targetSpaceStation = spaceStation;
+                    maxPrice = newPrice;
+                }
+            }
+            if (targetSpaceStation != null) {
+                return targetSpaceStation;
+            }
+        }
+
         var filteredEntities = game.getEntities().stream()
                 .filter(this.availableForLandingPredicate)
                 .collect(Collectors.toCollection(ArrayList::new));
@@ -113,7 +139,7 @@ public abstract class Spaceship extends EntityWithInventory implements IMovable 
     }
 
     protected void landingOnPlanet() {
-         if (inventory.containsKey(RobotMiner.class)) {
+        if (inventory.containsKey(RobotMiner.class)) {
             int robotsAmount = inventory.get(RobotMiner.class);
             AnnotationConfigApplicationContext context =
                     new AnnotationConfigApplicationContext(SpaceSimulationConfiguration.class);
@@ -131,12 +157,12 @@ public abstract class Spaceship extends EntityWithInventory implements IMovable 
                 this.tryDeleteFromInventory(RobotMiner.class, 1);
             }
         } else {
-             if (landedRobots.stream().noneMatch(robotMiner -> robotMiner.getPlanet() == target)) {
-                 landed = false;
-                 target = null;
-                 return;
-             }
-         }
+            if (landedRobots.stream().noneMatch(robotMiner -> robotMiner.getPlanet() == target)) {
+                landed = false;
+                target = null;
+                return;
+            }
+        }
         if (isInventoryNotFilled()) {
             return;
         }
@@ -171,6 +197,39 @@ public abstract class Spaceship extends EntityWithInventory implements IMovable 
     }
 
     protected void landingOnSpaceStation() {
+        for (Map.Entry<Class<IInventoryItem>, Integer> item : inventory.entrySet()) {
+            try {
+                sellObject((Class<IFossil>) item.getKey().newInstance().getClass(), item.getValue(), (SpaceStation) target);
+            }
+            catch (Exception e) {
+                continue;
+            }
+        }
+        landed = false;
+        target = null;
+    }
+
+    public void sellObject(Class<IFossil> resource, Integer resourceAmount, SpaceStation spaceStation) {
+        var totalResourceAmount = inventory.get(resource);
+        if (resourceAmount > totalResourceAmount) {
+            return;
+        }
+        var oneObjectCost = spaceStation.getObjectPriceForSell(resource);
+        if (oneObjectCost == null) {
+            return;
+        }
+        var totalCost = oneObjectCost * resourceAmount;
+        if (tryDeleteFromInventory(resource, resourceAmount)) {
+            addMoney(totalCost);
+        }
+    }
+
+    public boolean tryToBuyObject(Class<IPurchased> object) {
+        return false;
+    }
+
+    public void addMoney(Integer moneyToAdd) {
+        moneyAmount = moneyAmount + moneyToAdd;
     }
 
 }

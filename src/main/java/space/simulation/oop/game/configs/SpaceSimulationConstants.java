@@ -55,5 +55,7 @@ public final class SpaceSimulationConstants {
     //region SPACE_STATION
     public static final int MAX_SPACE_STATION_AMOUNT = 7;
     public static final int MIN_SPACE_STATION_AMOUNT = 1;
+    public static final int MAX_RESOURCE_PRICE = 100;
+    public static final int MIN_RESOURCE_PRICE = 5;
     //endregion
 }

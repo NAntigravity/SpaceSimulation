@@ -8,10 +8,7 @@ import space.simulation.oop.game.model.celestial.bodies.Mine;
 import space.simulation.oop.game.model.celestial.bodies.Planet;
 import space.simulation.oop.game.model.celestial.bodies.Star;
 import space.simulation.oop.game.model.map.Map;
-import space.simulation.oop.game.model.technologies.ScoutShip;
-import space.simulation.oop.game.model.technologies.SpaceBarge;
-import space.simulation.oop.game.model.technologies.SpaceStation;
-import space.simulation.oop.game.model.technologies.SpaceUber;
+import space.simulation.oop.game.model.technologies.*;
 import space.simulation.oop.game.services.EntityControlService;
 
 import java.util.ArrayList;
@@ -118,7 +115,7 @@ public class ControlClass {
     private void generateSpaceships() {
         int spaceshipAmount = (int) (Math.random() * (MAX_SPACESHIP_AMOUNT - MIN_SPACESHIP_AMOUNT + 1) + MIN_SPACESHIP_AMOUNT);
         for (int i = 0; i < spaceshipAmount; i++) {
-            int spawnEntityNumber = (int) (Math.random() * 3);
+            int spawnEntityNumber = (int) (Math.random() * 4);
             Entity entityToSpawn;
             switch (spawnEntityNumber) {
                 case 1:
@@ -126,6 +123,9 @@ public class ControlClass {
                     break;
                 case 2:
                     entityToSpawn = new SpaceUber();
+                    break;
+                case 3:
+                    entityToSpawn = new Tardis();
                     break;
                 default:
                     entityToSpawn = new ScoutShip();

@@ -1,4 +1,10 @@
 package space.simulation.oop.game.model.resources;
 
-public class Iron implements IFossil {
+import space.simulation.oop.game.model.Entity;
+import space.simulation.oop.game.model.IPurchased;
+
+public class Iron extends Entity implements IFossil, IPurchased {
+    public Iron() {
+        entityType = Iron.class;
+    }
 }

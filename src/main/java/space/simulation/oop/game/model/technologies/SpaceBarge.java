@@ -11,4 +11,9 @@ public class SpaceBarge extends Spaceship {
         this.availableForLandingPredicate = entity -> entity instanceof Asteroid || entity instanceof SpaceStation;
         inventoryCapacity = SPACE_BARGE_INVENTORY_CAPACITY;
     }
+
+    @Override
+    public void makeNoise(){
+        System.out.println("Звуки жирненькой баржи");
+    }
 }

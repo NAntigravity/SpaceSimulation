@@ -5,4 +5,9 @@ public class ScoutShip extends Spaceship {
         super();
         entityType = ScoutShip.class;
     }
+
+    @Override
+    public void makeNoise(){
+        System.out.println("Shinzou Wo Sasageyo!");
+    }
 }

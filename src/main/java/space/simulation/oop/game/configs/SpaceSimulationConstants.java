@@ -51,4 +51,9 @@ public final class SpaceSimulationConstants {
     public static final int SPACE_UBER_ROBOTS_AMOUNT_PER_START = 5;
     public static final int SPACE_UBER_INVENTORY_CAPACITY = 20;
     //endregion
+
+    //region SPACE_STATION
+    public static final int MAX_SPACE_STATION_AMOUNT = 7;
+    public static final int MIN_SPACE_STATION_AMOUNT = 1;
+    //endregion
 }

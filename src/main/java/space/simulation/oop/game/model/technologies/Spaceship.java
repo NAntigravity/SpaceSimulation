@@ -38,6 +38,10 @@ public abstract class Spaceship extends EntityWithInventory implements IMovable 
 
     protected Predicate<Entity> availableForLandingPredicate;
 
+    @Getter
+    @Setter
+    protected Integer moneyAmount = 0;
+
     public Spaceship() {
         target = null;
         entityType = Spaceship.class;
@@ -65,7 +69,6 @@ public abstract class Spaceship extends EntityWithInventory implements IMovable 
                 this.setTarget(newTarget);
             }
         }
-        makeNoise();
     }
 
     // TODO: rewrite the logic of the function below, as long as right now it is just a stub for test
@@ -98,6 +101,7 @@ public abstract class Spaceship extends EntityWithInventory implements IMovable 
         if (landed || MovableService.getDistanceToEntity(target, this.getCoordinates(), this.getWidth(), this.getHeight())
                 <= landingDistance) {
             landed = true;
+            makeNoise();
             if (target instanceof Asteroid) {
                 landingOnAsteroid();
             } else if (target instanceof Planet) {

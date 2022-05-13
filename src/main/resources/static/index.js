@@ -29,6 +29,9 @@ function switchEntityByID(entityType, entity) {
         case "space.simulation.oop.game.model.technologies.SpaceUber":
             entity.className = "space_uber";
             break;
+        case "space.simulation.oop.game.model.technologies.Tardis":
+            entity.className = "tardis";
+            break;
     }
 }
 

@@ -22,10 +22,12 @@ public class SpaceStation extends Entity implements IAvailableForLanding {
         Iron iron = new Iron();
         Kryptonite kryptonite = new Kryptonite();
         Vespen vespen = new Vespen();
+        RobotMiner robotMiner = new RobotMiner(null, null, null);
 
-        salesMarket.put(oil.getEntityType(), 10);
-        salesMarket.put(iron.getEntityType(), 30);
-        salesMarket.put(nuclearFuel.getEntityType(), 50);
+        salesMarket.put(oil.getEntityType(), (int) (Math.random() * (MAX_RESOURCE_PRICE - MIN_RESOURCE_PRICE + 1) + MIN_RESOURCE_PRICE));
+        salesMarket.put(iron.getEntityType(), (int) (Math.random() * (MAX_RESOURCE_PRICE - MIN_RESOURCE_PRICE + 1) + MIN_RESOURCE_PRICE));
+        salesMarket.put(nuclearFuel.getEntityType(), (int) (Math.random() * (MAX_RESOURCE_PRICE - MIN_RESOURCE_PRICE + 1) + MIN_RESOURCE_PRICE));
+        salesMarket.put(robotMiner.getEntityType(), (int) (Math.random() * (MAX_RESOURCE_PRICE - MIN_RESOURCE_PRICE + 1) + MIN_RESOURCE_PRICE));
 
         buyingMarket.put(oil.getEntityType(), (int) (Math.random() * (MAX_RESOURCE_PRICE - MIN_RESOURCE_PRICE + 1) + MIN_RESOURCE_PRICE));
         buyingMarket.put(iron.getEntityType(), (int) (Math.random() * (MAX_RESOURCE_PRICE - MIN_RESOURCE_PRICE + 1) + MIN_RESOURCE_PRICE));

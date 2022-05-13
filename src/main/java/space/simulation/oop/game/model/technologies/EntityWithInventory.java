@@ -5,7 +5,9 @@ import space.simulation.oop.game.model.Entity;
 import space.simulation.oop.game.model.IInventoryItem;
 import space.simulation.oop.game.model.resources.IFossil;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public abstract class EntityWithInventory extends Entity {
@@ -32,9 +34,6 @@ public abstract class EntityWithInventory extends Entity {
         if (inventory.containsKey(itemType)) {
             if (inventory.get(itemType) >= itemAmount) {
                 inventory.put(itemType, inventory.get(itemType) - itemAmount);
-                if (inventory.get(itemType) == 0) {
-                    inventory.remove(itemType);
-                }
                 return true;
             }
         }
@@ -85,5 +84,19 @@ public abstract class EntityWithInventory extends Entity {
             return null;
         }
         return totalPrice;
+    }
+
+    protected void clearEmptySlotsInInventory() {
+        List<Class<IInventoryItem>> toDelete = new ArrayList<>();
+        for (Map.Entry<Class<IInventoryItem>, Integer> item :
+                inventory.entrySet()) {
+            if (item.getValue() < 1) {
+                toDelete.add(item.getKey());
+            }
+        }
+        for (Class<IInventoryItem> item :
+                toDelete) {
+            inventory.remove(item);
+        }
     }
 }

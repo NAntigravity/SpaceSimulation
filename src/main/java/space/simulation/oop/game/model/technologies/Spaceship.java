@@ -73,6 +73,7 @@ public abstract class Spaceship extends EntityWithInventory implements IMovable 
                 this.setTarget(newTarget);
             }
         }
+        clearEmptySlotsInInventory();
     }
 
     // TODO: rewrite the logic of the function below, as long as right now it is just a stub for test
@@ -197,16 +198,42 @@ public abstract class Spaceship extends EntityWithInventory implements IMovable 
     }
 
     protected void landingOnSpaceStation() {
+        sellAllAvailableItemsFromInventory();
+        buyALotOfRobots((SpaceStation) target);
+        landed = false;
+        target = null;
+    }
+
+    protected void sellAllAvailableItemsFromInventory() {
         for (Map.Entry<Class<IInventoryItem>, Integer> item : inventory.entrySet()) {
             try {
                 sellObject((Class<IFossil>) item.getKey().newInstance().getClass(), item.getValue(), (SpaceStation) target);
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
                 continue;
             }
         }
-        landed = false;
-        target = null;
+    }
+
+    protected void buyALotOfRobots(SpaceStation spaceStation) {
+        Class<IPurchased> robotClass;
+        try {
+            robotClass = RobotMiner.class.newInstance().getEntityType();
+        } catch (Exception e) {
+            return;
+        }
+        if (robotClass == null) {
+            return;
+        }
+        Integer objectPrice = spaceStation.getObjectPrice(robotClass);
+        if (objectPrice == null) {
+            return;
+        }
+        if (getMoneyAmount() / objectPrice > getEmptySpaceAmount()) {
+            //Buy only available amount
+            tryToBuyObject(robotClass, getEmptySpaceAmount(), spaceStation);
+        }
+        //Buy on all money
+        tryToBuyObject(robotClass, getMoneyAmount() / objectPrice, spaceStation);
     }
 
     public void sellObject(Class<IFossil> resource, Integer resourceAmount, SpaceStation spaceStation) {
@@ -224,12 +251,29 @@ public abstract class Spaceship extends EntityWithInventory implements IMovable 
         }
     }
 
-    public boolean tryToBuyObject(Class<IPurchased> object) {
+    public boolean tryToBuyObject(Class<IPurchased> object, Integer objectsAmount, @NotNull SpaceStation spaceStation) {
+        if (objectsAmount > getEmptySpaceAmount()) {
+            return false;
+        }
+        Integer objectPrice = spaceStation.getObjectPrice(object);
+        if (objectPrice == null) {
+            return false;
+        }
+        Integer objectsCost = objectPrice * objectsAmount;
+        if (objectsCost <= moneyAmount) {
+            tryAddToInventory(object, objectsAmount);
+            reduceMoney(objectsCost);
+            return true;
+        }
         return false;
     }
 
     public void addMoney(Integer moneyToAdd) {
-        moneyAmount = moneyAmount + moneyToAdd;
+        moneyAmount += moneyToAdd;
+    }
+
+    public void reduceMoney(Integer moneyToMinus) {
+        moneyAmount -= moneyToMinus;
     }
 
 }

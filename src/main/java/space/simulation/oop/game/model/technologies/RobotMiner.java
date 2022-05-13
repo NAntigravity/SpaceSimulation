@@ -16,13 +16,17 @@ import static space.simulation.oop.game.configs.SpaceSimulationConstants.ROBOTS_
 
 public class RobotMiner extends EntityWithInventory implements IMovable, IPurchased, IInventoryItem {
     @JsonIgnore
-    private final Mine purposeOfMining;
+    private Mine purposeOfMining;
     @JsonIgnore
     @Getter
-    private final Planet planet;
+    private Planet planet;
     @JsonIgnore
     @Getter
-    private final Spaceship owner;
+    private Spaceship owner;
+
+    public RobotMiner() {
+        this.entityType = RobotMiner.class;
+    }
 
     public RobotMiner(Mine purposeOfMining, Planet planet, Spaceship owner) {
         this.entityType = RobotMiner.class;

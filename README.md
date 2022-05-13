@@ -6,6 +6,12 @@ Web application that simulates life in space.
 
 API (Spring Boot) + frontend (HTML, CSS, JS).
 
+---
+
+API: http://localhost:8080/space
+
+Frontend: http://localhost:8080
+
 ## Installation
 
 You can clone this repository and use it locally:

@@ -51,8 +51,7 @@ public class Star extends Entity {
             // AAAAAAAAAAAAAAAAAAAAA
             if (!(entity instanceof ScoutShip ||
                     entity instanceof SpaceBarge ||
-                    entity instanceof SpaceUber ||
-                    entity instanceof Tardis)) {
+                    entity instanceof SpaceUber)) {
                 continue;
             }
             var distance = MovableService.getDistanceToEntity(entity, this.getCoordinates(), this.getWidth(), this.getHeight());

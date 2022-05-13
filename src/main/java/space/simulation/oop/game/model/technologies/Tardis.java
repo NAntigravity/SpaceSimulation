@@ -1,13 +1,13 @@
 package space.simulation.oop.game.model.technologies;
 
 import space.simulation.oop.game.model.Direction;
-import space.simulation.oop.game.model.Entity;
 import space.simulation.oop.game.services.MovableService;
 
 public class Tardis extends Spaceship {
     public Tardis() {
         super();
         this.availableForLandingPredicate = entity -> false;
+        entityType = Tardis.class;
     }
 
     @Override

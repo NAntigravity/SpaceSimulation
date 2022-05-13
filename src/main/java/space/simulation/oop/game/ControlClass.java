@@ -75,6 +75,8 @@ public class ControlClass {
         return gameField;
     }
 
+    // TODO: implement the abstract factory pattern for object generation
+
     private void generateStars() {
         int starsAmount = (int) (Math.random() * (MAX_STARS_AMOUNT - MIN_STARS_AMOUNT + 1) + MIN_STARS_AMOUNT);
         for (int i = 0; i < starsAmount; i++) {

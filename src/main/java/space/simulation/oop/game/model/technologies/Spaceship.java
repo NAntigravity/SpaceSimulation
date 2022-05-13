@@ -199,6 +199,9 @@ public abstract class Spaceship extends EntityWithInventory implements IMovable 
 
     protected void landingOnSpaceStation() {
         sellAllAvailableItemsFromInventory();
+
+        // TODO: write logic to buy only needed items
+
         buyALotOfRobots((SpaceStation) target);
         landed = false;
         target = null;

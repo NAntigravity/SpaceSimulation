@@ -9,6 +9,9 @@ function switchImageByID(tile, ID) {
         case "space.simulation.oop.game.model.celestial.bodies.Planet":
             tile.className = "planet";
             break;
+        case "space.simulation.oop.game.model.technologies.SpaceStation":
+            tile.className = "space_station"
+            break;
     }
 }
 

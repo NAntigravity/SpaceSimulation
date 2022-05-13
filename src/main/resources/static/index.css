@@ -47,4 +47,8 @@ img {
     content: url(/img/ships/space_barge.png);
 }
 
+.space_station {
+    content: url(img/tiles/space_station_tile.jpg);
+}
+
 

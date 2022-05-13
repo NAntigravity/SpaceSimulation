@@ -51,4 +51,8 @@ img {
     content: url(img/tiles/space_station_tile.jpg);
 }
 
+.tardis {
+    content: url(img/ships/tardis.png);
+}
+
 

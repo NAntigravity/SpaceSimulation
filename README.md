@@ -23,7 +23,3 @@ You can start application using Spring Boot custom command:
 ```sh
 $ mvn spring-boot:run
 ```
-
-## UML
-
-To watch UML diagrams of app, go to <a href="UML">uml directory</a>.
